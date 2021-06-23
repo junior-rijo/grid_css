@@ -18,7 +18,7 @@ a {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 100%;
   border-radius: 5px;
 }
 
@@ -32,6 +32,30 @@ img {
     "sidenav content anuncios"
     "footer footer footer";
 }
+
+/*Responsivo*/
+@media (max-width: 1200px) {
+  .estrutura {
+    grid-template-areas:
+      "header header header"
+      "sidenav content content "
+      "sidenav anuncios anuncios"
+      "footer footer footer";
+  }
+}
+
+@media (max-width: 760px) {
+  .estrutura {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "header"
+      "sidenav"
+      "content"
+      "anuncios"
+      "footer";
+  }
+}
+
 /*Menu e header*/
 .header {
   grid-area: header;
@@ -65,6 +89,23 @@ img {
   margin-left: 30px;
 }
 
+/*Responsivo*/
+@media (max-width: 760px) {
+  .header {
+    grid-template-columns: auto;
+  }
+  .logo {
+    margin-bottom: 20px;
+  }
+  .header nav a {
+    font-size: 1em;
+  }
+  .header li + li {
+    /*Solução para separa os itens do menu, cada li que vir após o primeiro li add 30px*/
+    margin-left: 10px;
+  }
+}
+
 /*Logo*/
 .logo {
   max-width: 200px;
@@ -92,7 +133,43 @@ img {
 .sidenav li a:hover {
   background: #b07dfb;
 }
+@keyframes seta{
+    from{
+    right: 30px;
+    }
+    to{
+        right: 20px;
+    } 
+}
 
+@media (max-width: 760px) {
+  .sidenav ul {
+    display: flex;
+  }
+  .sidenav ul li {
+    flex: 1 0 60px;
+  }
+  .sidenav {
+    padding: 0 30px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style:-ms-autohiding-scrollbar;
+  }
+  .sidenav::after{
+    content: '->';
+    position: absolute;
+    top: 160px;
+    right: 30px;
+    color: rgba(0, 0, 0, 0.3);
+    animation: seta.5s ease-in 0s infinite alternate;
+}
+  .sidenav li a {
+    margin: 30px 30px 30px 0;
+  }
+
+}
+
+/*Conteúdo*/
 .content {
   grid-area: content;
   max-width: 900px;
@@ -100,20 +177,26 @@ img {
   padding: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 30px;
+  gap: 30px;
 }
 .col-wide {
   grid-column: 1 / -1;
 }
 
 .imagem-1 {
-  grid-column: span 2;
+  grid-row: span 2;
   align-self: end;
 }
 
 .item-2 {
   align-self: end;
 }
+/*Responsivo*/
+@media (max-width: 600px) {
+    .content{
+        grid-template-columns: auto;
+    }
+  }
 
 /*Estilos Gerais*/
 
@@ -192,7 +275,7 @@ p {
 
 .citacao,
 .atributos {
-    align-self: start;
+  align-self: start;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 5px 5px 15px 0px rgba(44, 44, 44, 0.15);
@@ -215,8 +298,9 @@ p {
   padding: 15px;
 }
 
-.atributos li + li{/*linhas dos tributos*/
-    border-top: 2px solid white;
+.atributos li + li {
+  /*linhas dos tributos*/
+  border-top: 2px solid white;
 }
 /*Anuncios*/
 .anuncios {
@@ -226,6 +310,7 @@ p {
   align-content: start;
   padding: 30px;
   grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 .footer {
   grid-area: footer;
